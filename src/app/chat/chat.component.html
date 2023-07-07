@@ -1,0 +1,20 @@
+<div class="chat-container">
+    <div class="chat-messages">
+        <div *ngFor="let message of chatMessages" class="message" [@messageAnimation]="message">
+          {{ message }}
+        </div>
+      </div>
+      
+      <div class="chat-options">
+        <button
+          *ngFor="let option of chatOptions; index as i"
+          (click)="sendMessage(option, i)"
+          class="option"
+          [@optionAnimation]="option"
+        >
+          {{ option }}
+        </button>
+      </div>
+      
+</div>
+  
