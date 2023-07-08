@@ -7,15 +7,15 @@
   }
 
   .chat-messages, .message, .option {
-    font-family: "Montserrat", sans-serif; /* Replace "Montserrat" with your chosen font */
+    font-family: "Montserrat", sans-serif;
   }
 
   .chat-messages {
-    background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity value as needed */
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 16px;
     padding: 16px;
     overflow-y: auto;
-    height: 350px; /* Adjust the height as needed to fit 10 messages */
+    height: 350px;
     width: 20%;
     margin-bottom: 20px;
   }
@@ -26,19 +26,23 @@
     color: #333;
     padding: 8px 16px;
     margin-bottom: 8px;
-    display: flex;
-    max-width: 50%;
-    align-items: flex-start;
+    display: block; 
+    /* max-width: 50%; */
+    word-wrap: break-word;
+    clear: both; 
   }
-
+  
   .message.left {
-    justify-content: flex-start;
-    background-color: #dcdcdc;
+    background-color: #eeeeee;
+    text-align: left;
+    float: left; 
   }
+  
   .message.right {
-    margin-left: auto;
-    /* margin-right: auto; */
-    justify-content: flex-end;
+    background-color: #e1ffc7;
+    margin-bottom: 5px;
+    text-align: right;
+    float: right; 
   }
   
   .chat-options {
