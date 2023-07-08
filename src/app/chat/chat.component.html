@@ -1,18 +1,18 @@
-<div class="chat-container">
-    <div class="chat-messages">
-        <div *ngFor="let message of chatMessages" class="message" [@messageAnimation]="message">
-          {{ message }}
+<div class="chat-container" >
+    <div class="chat-messages" #chatContainer>
+        <div *ngFor="let item of chatMessages" class="message" [class.left]="item.side === 'L'" [class.right]="item.side === 'R'">
+          {{ item.message }}
         </div>
+        
       </div>
       
       <div class="chat-options">
         <button
-          *ngFor="let option of chatOptions; index as i"
-          (click)="sendMessage(option, i)"
+          *ngFor="let item of chatOptions; index as i"
+          (click)="sendMessage(item, i)"
           class="option"
-          [@optionAnimation]="option"
         >
-          {{ option }}
+          {{ item.option }}
         </button>
       </div>
       

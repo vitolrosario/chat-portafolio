@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { iChatOption } from '../interfaces/chat-option';
+import { iChatMessage } from '../interfaces/chat-messages';
 
 @Component({
   selector: 'app-chat',
@@ -8,41 +10,52 @@ import { trigger, transition, style, animate } from '@angular/animations';
   animations: [
     trigger('messageAnimation', [
       transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 })),
+        style({ opacity: 0, transform: 'translateX(-50px)' }),
+        animate('500ms', style({ opacity: 1, transform: 'translateX(0)' })),
       ]),
     ]),
     trigger('optionAnimation', [
       transition(':enter', [
         style({ transform: 'scale(0.5)', opacity: 0 }),
-        animate('300ms', style({ transform: 'scale(1)', opacity: 1 })),
+        animate('300ms', style({ transform: 'scale(1)', opacity: 1, color: "red" })),
       ]),
     ]),
   ],
 })
 export class ChatComponent {
-  chatMessages: string[] = [];
-  chatOptions: string[] = ['Option 1', 'Option 2', 'Option 3'];
 
-  sendMessage(option: string, index: number): void {
-    this.chatMessages.push(option);
-    this.chatMessages.push(this.getStaticAnswer(option));
-    setTimeout(() => {
-      this.chatOptions.splice(index, 1);
-    }, 300);
-  }
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
+  
+  chatMessages: iChatMessage[] = [];
 
-  getStaticAnswer(option: string): string {
-    // Return static answer based on selected option
-    switch (option) {
-      case 'Option 1':
-        return 'This is the answer for Option 1.';
-      case 'Option 2':
-        return 'This is the answer for Option 2.';
-      case 'Option 3':
-        return 'This is the answer for Option 3.';
-      default:
-        return '';
+  chatOptions: iChatOption[] = [
+    {option: "Who are you?", message: "My name is Victor"},
+    {option: "What are your skills?", message: "NodeJS, Angular"},
+    {option: "Whats your professional experience?", message: "5 Years of experience"},
+  ];
+
+  animateMessage = false;
+
+  sendMessage(option: iChatOption, index: number): void {
+    // this.chatMessages.push(option);
+    this.chatMessages.push({ side: "R", message: option.option});
+    this.scroll()
+
+    setTimeout(() => {    
+      this.chatMessages.push({ side: "L", message: option.message});
+      this.scroll()
+  }, 1500);
+  } 
+  
+  scroll() {
+    try {
+      setTimeout(() => {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      }, 100);
+
+    } catch (err) {
+      console.error(err);
     }
   }
+
 }

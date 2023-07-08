@@ -1,36 +1,72 @@
-.chat-container {
+  .chat-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    font-family: "Montserrat", sans-serif; /* Replace "Montserrat" with your chosen font */
   }
-  
+
+  .chat-messages, .message, .option {
+    font-family: "Montserrat", sans-serif; /* Replace "Montserrat" with your chosen font */
+  }
+
   .chat-messages {
+    background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity value as needed */
+    border-radius: 16px;
+    padding: 16px;
+    overflow-y: auto;
+    height: 350px; /* Adjust the height as needed to fit 10 messages */
+    width: 20%;
     margin-bottom: 20px;
   }
   
   .message {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
+    background-color: #e1ffc7;
+    border-radius: 16px;
+    color: #333;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    max-width: 50%;
+    align-items: flex-start;
+  }
+
+  .message.left {
+    justify-content: flex-start;
+    background-color: #dcdcdc;
+  }
+  .message.right {
+    margin-left: auto;
+    /* margin-right: auto; */
+    justify-content: flex-end;
   }
   
   .chat-options {
     display: flex;
   }
-  
+
   .option {
-    margin-right: 10px;
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    background-color: #EDEFF1;
+    border-radius: 16px;
+    color: #333;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    display: inline-block;
+    max-width: 75%;
   }
-  
+
   .option:hover {
     background-color: #45a049;
+  }
+
+  .animate-message {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .animate-message.animate {
+    opacity: 1;
+    transform: translateY(0);
   }
   
