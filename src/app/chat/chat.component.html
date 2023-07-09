@@ -1,7 +1,7 @@
 <div class="chat-container" >
     <div class="chat-messages" #chatContainer>
         <div *ngFor="let item of chatMessages" class="message" [class.left]="item.side === 'L'" [class.right]="item.side === 'R'">
-          {{ item.message }}
+          <span [innerHTML]="item.message"></span>
         </div>
 
         <ng-container #typingAnimation *ngIf="loading">
@@ -22,11 +22,12 @@
         <ng-container *ngFor="let item of chatOptions; index as i">
           <button
             (click)="sendMessage(item, i)"
+            [attr.disabled]="item.fade"
             [class.fade-out]="item.fade"
             *ngIf="item.show"
             class="option"
           >
-            {{ item.option }}
+            {{item.option}}
           </button>
         </ng-container>
       </div>
