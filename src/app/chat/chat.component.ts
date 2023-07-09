@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { iChatOption } from '../interfaces/chat-option';
 import { iChatMessage } from '../interfaces/chat-messages';
@@ -7,20 +7,7 @@ import { iChatMessage } from '../interfaces/chat-messages';
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-  animations: [
-    trigger('messageAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-50px)' }),
-        animate('500ms', style({ opacity: 1, transform: 'translateX(0)' })),
-      ]),
-    ]),
-    trigger('optionAnimation', [
-      transition(':enter', [
-        style({ transform: 'scale(0.5)', opacity: 0 }),
-        animate('300ms', style({ transform: 'scale(1)', opacity: 1, color: "red" })),
-      ]),
-    ]),
-  ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ChatComponent {
 
