@@ -29,19 +29,24 @@ export class ChatComponent {
   chatMessages: iChatMessage[] = [];
 
   chatOptions: iChatOption[] = [
-    {option: "Who are you?", message: "My name is Victor"},
-    {option: "What are your skills?", message: "NodeJS, Angular"},
-    {option: "Whats your professional experience?", message: "5 Years of experience"},
+    {option: "Who are you?", message: "My name is Victor", show: true},
+    {option: "What are your skills?", message: "NodeJS, Angular", show: false},
+    {option: "Whats your professional experience?", message: "5 Years of experience", show: false},
   ];
 
   animateMessage = false;
+  loading: boolean = false;
 
   sendMessage(option: iChatOption, index: number): void {
-    // this.chatMessages.push(option);
+    option.fade = true
+    option.show = false
+    this.loading = true
     this.chatMessages.push({ side: "R", message: option.option});
     this.scroll()
 
     setTimeout(() => {    
+      this.loading = false
+      this.chatOptions[index+1] ? this.chatOptions[index+1].show = true : null
       this.chatMessages.push({ side: "L", message: option.message});
       this.scroll()
   }, 1500);
