@@ -24,23 +24,43 @@ export class ChatComponent {
   animateMessage = false;
   loading: boolean = false;
 
-  sendMessage(option: iChatOption, index: number): void {
+  async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
-    this.chatMessages.push({ side: "R", message: option.option});
+
+    await this.pushMessageByLetter("R", option.option)
+    
     this.scroll()
 
-    setTimeout(() => {
-      this.loading = true
-    }, 100);
+    await this.wait(100)
 
-    setTimeout(() => {    
-      option.show = false
-      this.loading = false
-      this.chatOptions[index+1] ? this.chatOptions[index+1].show = true : null
-      this.chatMessages.push({ side: "L", message: option.message});
-      this.scroll()
-  }, 1500);
+    this.loading = true
+
+    await this.wait(1500)
+
+    option.show = false
+    this.loading = false
+
+    await this.pushMessageByLetter("L", option.message)
+    
+    this.chatOptions[index+1] ? this.chatOptions[index+1].show = true : null
+
+    this.scroll()
   } 
+
+  async pushMessageByLetter(side: "L" | "R", message: string) : Promise<void> {
+    this.chatMessages.push({ side, message: ""});
+
+    const messageIndex: number = this.chatMessages.length - 1
+
+    for (const [i, letter] of message.split('').entries()) {
+      await this.wait(50)
+  
+      this.scroll()
+      
+      this.chatMessages[messageIndex].message += letter
+    }
+
+  }
   
   scroll() {
     try {
@@ -51,6 +71,10 @@ export class ChatComponent {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  wait(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
 }
