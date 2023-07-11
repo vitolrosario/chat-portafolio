@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
 import { iChatOption } from '../interfaces/chat-option';
 import { iChatMessage } from '../interfaces/chat-messages';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-chat',
@@ -17,12 +17,14 @@ export class ChatComponent {
 
   chatOptions: iChatOption[] = [
     {option: "Who are you?", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
-    {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
-    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+    // {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
+    // {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
   ];
 
   animateMessage = false;
   loading: boolean = false;
+  isCannonVisible: boolean = false;
+  showCannonBtn: boolean = false;
 
   async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
@@ -42,7 +44,7 @@ export class ChatComponent {
 
     await this.pushMessageByLetter("L", option.message)
     
-    this.chatOptions[index+1] ? this.chatOptions[index+1].show = true : null
+    this.chatOptions.length > index+1 ? this.chatOptions[index+1].show = true : this.showCannonBtn = true
 
     this.scroll()
   } 
@@ -64,7 +66,7 @@ export class ChatComponent {
   
   scroll() {
     try {
-      setTimeout(() => {
+      setTimeout(() => { 
         this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
       }, 100);
 
@@ -75,6 +77,11 @@ export class ChatComponent {
 
   wait(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  showCannon() : void {
+    this.isCannonVisible = true;
+    this.showCannonBtn = false
   }
 
 }

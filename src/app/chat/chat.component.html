@@ -1,5 +1,5 @@
 <div class="chat-container" >
-    <div class="chat-messages" #chatContainer>
+      <div class="chat-messages" #chatContainer *ngIf="!isCannonVisible">
         <div *ngFor="let item of chatMessages" class="message" [class.left]="item.side === 'L'" [class.right]="item.side === 'R'">
           <span [innerHTML]="item.message"></span>
         </div>
@@ -16,6 +16,10 @@
         </ng-container>
         
       </div>
+
+      <div *ngIf="isCannonVisible">
+        <cannon-component></cannon-component>
+      </div>
       
       <div class="chat-options">  
 
@@ -30,9 +34,12 @@
             {{item.option}}
           </button>
         </ng-container>
-      </div>
 
-      <!-- <app-loader *ngIf="loading"></app-loader> -->
-      
+        <button 
+          *ngIf="showCannonBtn" 
+          (click)="showCannon()"
+          class="option">
+          Show some magic
+        </button>
+      </div>
 </div>
-  
