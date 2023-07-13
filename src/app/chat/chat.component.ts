@@ -12,19 +12,26 @@ import { ThrowStmt } from '@angular/compiler';
 export class ChatComponent {
 
   @ViewChild('chatContainer') chatContainer!: ElementRef;
+  @ViewChild('audioPlayer') audioPlayer!: ElementRef;
   
   chatMessages: iChatMessage[] = [];
 
   chatOptions: iChatOption[] = [
     {option: "Who are you?", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
-    // {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
-    // {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+    {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
+    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
   ];
 
   animateMessage = false;
   loading: boolean = false;
   isCannonVisible: boolean = false;
   showCannonBtn: boolean = false;
+  
+  ngAfterViewInit() {
+    this.audioPlayer.nativeElement.addEventListener('ended', () => {
+      this.playAudio();
+    });
+  }
 
   async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
@@ -54,6 +61,8 @@ export class ChatComponent {
 
     const messageIndex: number = this.chatMessages.length - 1
 
+    this.playAudio()
+
     for (const [i, letter] of message.split('').entries()) {
       await this.wait(50)
   
@@ -61,6 +70,8 @@ export class ChatComponent {
       
       this.chatMessages[messageIndex].message += letter
     }
+
+    this.pauseAudio()
 
   }
   
@@ -82,6 +93,14 @@ export class ChatComponent {
   showCannon() : void {
     this.isCannonVisible = true;
     this.showCannonBtn = false
+  }
+
+  playAudio() {
+    this.audioPlayer.nativeElement.play();
+  }
+
+  pauseAudio() {
+    this.audioPlayer.nativeElement.pause();
   }
 
 }
