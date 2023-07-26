@@ -1,4 +1,13 @@
-<div class="chat-container" >
+<!-- <virus-game *ngIf="gameMode"></virus-game> -->
+
+<div class="chat-container" [style.font-family]="selectedFontFamily">
+
+      <div class="switch-container">
+        <label>{{gameMode ? "Game Mode" : "Professional Mode"}}</label>
+      </div>
+
+      <switch-component [(value)]="gameMode" (change)="changeGameMode()"></switch-component>
+
       <div class="chat-messages" #chatContainer *ngIf="!isCannonVisible">
         <div *ngFor="let item of chatMessages" class="message" [class.left]="item.side === 'L'" [class.right]="item.side === 'R'">
           <span [innerHTML]="item.message"></span>
@@ -30,6 +39,7 @@
             [class.fade-out]="item.fade"
             *ngIf="item.show"
             class="option"
+            [style.font-family]="selectedFontFamily"
           >
             {{item.option}}
           </button>
@@ -44,7 +54,5 @@
       </div>
 </div>
 
-<audio #audioPlayer>
-  <source src="../assets/typing.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+<audio #typingSound><source src="../assets/typing.mp3" type="audio/mpeg"></audio>
+<audio #gameSound><source src="../assets/game-ost.mp3" type="audio/mpeg"></audio>

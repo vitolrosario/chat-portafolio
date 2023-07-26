@@ -17,13 +17,22 @@
     height: 100%;
 }
 
+.app-container-no-bg {
+    background-image: url('../assets/background-game2.jpg');
+}
+
 body {
     margin: 0;
     padding: 0;
 }
 
 ::ng-deep * {
-      
     margin: 0;
     padding: 0;
+}
+
+@font-face {
+    font-family: 'Arcade Classic';
+    src: url('../assets/fonts/ARCADECLASSIC.TTF') format('truetype');
+    /* You can also add more font formats for better cross-browser compatibility */
   }

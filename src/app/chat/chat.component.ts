@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, Renderer2 } from '@angular/core';
 import { iChatOption } from '../interfaces/chat-option';
 import { iChatMessage } from '../interfaces/chat-messages';
-import { ThrowStmt } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-chat',
@@ -10,33 +10,52 @@ import { ThrowStmt } from '@angular/compiler';
   encapsulation: ViewEncapsulation.None,
 })
 export class ChatComponent {
+  
+  constructor(
+  ) { }
 
   @ViewChild('chatContainer') chatContainer!: ElementRef;
-  @ViewChild('audioPlayer') audioPlayer!: ElementRef;
+  @ViewChild('typingSound') typingSound!: ElementRef;
+  @ViewChild('gameSound') gameSound!: ElementRef;
   
   chatMessages: iChatMessage[] = [];
 
-  chatOptions: iChatOption[] = [
+  gameMode: boolean = false
+
+  chatOptionsDefault: iChatOption[] = [
     {option: "Who are you?", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
     {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
     {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
   ];
 
+  chatOptionsGameMode: iChatOption[] = [
+    {option: "Start Game", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
+    {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
+    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+  ];
+
+  chatOptions: iChatOption[] = this.chatOptionsDefault;
+
   animateMessage = false;
   loading: boolean = false;
   isCannonVisible: boolean = false;
   showCannonBtn: boolean = false;
+  selectedFontFamily: string = "JetBrains Mono, monospace !important"
   
   ngAfterViewInit() {
-    this.audioPlayer.nativeElement.addEventListener('ended', () => {
-      this.playAudio();
+    this.typingSound.nativeElement.addEventListener('ended', () => {
+      this.playAudio(this.typingSound);
+    });
+    this.gameSound.nativeElement.addEventListener('ended', () => {
+      this.playAudio(this.gameSound);
     });
   }
 
   async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
 
-    await this.pushMessageByLetter("R", option.option)
+    this.chatMessages.push({ side:"R", message: option.option})
+    // await this.pushMessageByLetter("R", option.option)
     
     this.scroll()
 
@@ -61,17 +80,17 @@ export class ChatComponent {
 
     const messageIndex: number = this.chatMessages.length - 1
 
-    this.playAudio()
+    this.playAudio(this.typingSound)
 
     for (const [i, letter] of message.split('').entries()) {
-      await this.wait(50)
-  
+      await this.wait(40)
+
       this.scroll()
       
       this.chatMessages[messageIndex].message += letter
     }
 
-    this.pauseAudio()
+    this.pauseAudio(this.typingSound)
 
   }
   
@@ -95,12 +114,46 @@ export class ChatComponent {
     this.showCannonBtn = false
   }
 
-  playAudio() {
-    this.audioPlayer.nativeElement.play();
+  playAudio(audio: ElementRef) {
+    if (this.gameMode)
+      audio.nativeElement.play();
+      audio.nativeElement.volume = 0.2
   }
 
-  pauseAudio() {
-    this.audioPlayer.nativeElement.pause();
+  pauseAudio(audio: ElementRef) {
+    if (this.gameMode)
+      audio.nativeElement.pause();
+  }
+
+  changeGameMode() {
+    this.selectedFontFamily = this.gameMode ? "Arcade Classic !important" : "JetBrains Mono, monospace !important"
+
+    if (this.gameMode) {
+      this.playAudio(this.gameSound)
+      this.chatOptions = this.chatOptionsGameMode
+      this.chatMessages = []
+      this.addClass("app-container", "app-container-no-bg")
+    }
+    else {
+      this.pauseAudio(this.gameSound)
+      this.chatOptions = this.chatOptionsDefault
+      this.chatMessages = []
+      this.removeClass("app-container", "app-container-no-bg")
+    }
+  }
+
+  loadScript(url: string) {
+    const script = document.createElement('script');
+    script.src = url;
+    document.body.appendChild(script);
+  }
+
+  addClass(className: string, classToAdd: string) {
+    document.getElementsByClassName(className)[0].classList.add(classToAdd)
+  }
+
+  removeClass(className: string, classToAdd: string) {
+    document.getElementsByClassName(className)[0].classList.remove(classToAdd)
   }
 
 }
