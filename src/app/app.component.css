@@ -17,7 +17,7 @@
     height: 100%;
 }
 
-.app-container-no-bg {
+.app-container-game {
     background-image: url('../assets/background-game2.jpg');
 }
 
@@ -34,5 +34,8 @@ body {
 @font-face {
     font-family: 'Arcade Classic';
     src: url('../assets/fonts/ARCADECLASSIC.TTF') format('truetype');
-    /* You can also add more font formats for better cross-browser compatibility */
-  }
+}
+@font-face {
+    font-family: 'Arcade Rounded';
+    src: url('../assets/fonts/ARCADE_R.TTF') format('truetype');
+}

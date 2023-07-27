@@ -29,9 +29,9 @@ export class ChatComponent {
   ];
 
   chatOptionsGameMode: iChatOption[] = [
-    {option: "Start Game", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
-    {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
-    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+    {option: "Start Game", message: "Ah, welcome, my name is Victor Rosario and i'm a fullstack software developer.", show: true},
+    {option: "How many years of experience do you have in software development?", message: "Experience matters little in the face of my coding abilities. Nevertheless, I have sharpen my skills for over a decade.", show: false},
+    {option: "What technologies do you specialize in?", message: "My specialization goes far beyond your measly understanding. I command the forces of <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
   ];
 
   chatOptions: iChatOption[] = this.chatOptionsDefault;
@@ -54,14 +54,18 @@ export class ChatComponent {
   async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
 
-    this.chatMessages.push({ side:"R", message: option.option})
+    if (!this.gameMode)
+      this.chatMessages.push({ side:"R", message: option.option})
+    else 
+      this.chatMessages = []
     // await this.pushMessageByLetter("R", option.option)
     
     this.scroll()
 
     await this.wait(100)
 
-    this.loading = true
+    if (!this.gameMode)
+      this.loading = true
 
     await this.wait(1500)
 
@@ -121,25 +125,27 @@ export class ChatComponent {
   }
 
   pauseAudio(audio: ElementRef) {
-    if (this.gameMode)
-      audio.nativeElement.pause();
+    audio.nativeElement.pause();
   }
 
   changeGameMode() {
-    this.selectedFontFamily = this.gameMode ? "Arcade Classic !important" : "JetBrains Mono, monospace !important"
-
+    this.selectedFontFamily = this.gameMode ? "Arcade Rounded !important" : "JetBrains Mono, monospace !important"
     if (this.gameMode) {
       this.playAudio(this.gameSound)
       this.chatOptions = this.chatOptionsGameMode
       this.chatMessages = []
-      this.addClass("app-container", "app-container-no-bg")
+      this.toogleClass("app-container", "app-container-game")
+      this.toogleClass("chat-messages", "game")
     }
     else {
       this.pauseAudio(this.gameSound)
+      this.pauseAudio(this.typingSound)
       this.chatOptions = this.chatOptionsDefault
       this.chatMessages = []
-      this.removeClass("app-container", "app-container-no-bg")
+      this.toogleClass("app-container", "app-container-game")
+      this.toogleClass("chat-messages", "game")
     }
+    this.showCannonBtn = false
   }
 
   loadScript(url: string) {
@@ -154,6 +160,10 @@ export class ChatComponent {
 
   removeClass(className: string, classToAdd: string) {
     document.getElementsByClassName(className)[0].classList.remove(classToAdd)
+  }
+
+  toogleClass(className: string, classToAdd: string) {
+    document.getElementsByClassName(className)[0].classList.toggle(classToAdd)
   }
 
 }

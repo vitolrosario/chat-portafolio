@@ -3,15 +3,18 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  /* font-family: "Montserrat", sans-serif; */
-  /* font-family: "JetBrains Mono", monospace; */
 }
 
-/* .chat-messages,
-.message,
-.option { */
-  /* font-family: "Montserrat", sans-serif; */
-/* } */
+.font-normal {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+.font-game {
+  font-family: 'Arcade Rounded' !important;
+  font-size: 10px;
+}
+
+
 
 .chat-messages {
   background-color: rgba(255, 255, 255, 0.6);
@@ -20,6 +23,7 @@
   overflow-y: auto;
   margin-bottom: 20px;
   position: relative;
+  transition: height 1s ease;
 }
 
 @media (max-width: 767px) {
@@ -27,12 +31,20 @@
     height: 60vh;
     width: 80vw;
   }
+  
+  .chat-messages.game {
+    height: 20vh;
+  }
 }
 
 @media (min-width: 768px) {
   .chat-messages {
     height: 60vh;
     width: 20vw;
+  }
+  
+  .chat-messages.game {
+    height: 20vh;
   }
 }
 

@@ -1,6 +1,4 @@
-<!-- <virus-game *ngIf="gameMode"></virus-game> -->
-
-<div class="chat-container" [style.font-family]="selectedFontFamily">
+<div class="chat-container" [class.font-normal]="!gameMode" [class.font-game]="gameMode">
 
       <div class="switch-container">
         <label>{{gameMode ? "Game Mode" : "Professional Mode"}}</label>
@@ -39,7 +37,7 @@
             [class.fade-out]="item.fade"
             *ngIf="item.show"
             class="option"
-            [style.font-family]="selectedFontFamily"
+            [class.font-normal]="!gameMode" [class.font-game]="gameMode"
           >
             {{item.option}}
           </button>
@@ -48,7 +46,9 @@
         <button 
           *ngIf="showCannonBtn" 
           (click)="showCannon()"
-          class="option">
+          class="option"
+          [class.font-normal]="!gameMode" [class.font-game]="gameMode"
+          >
           Show some magic
         </button>
       </div>
