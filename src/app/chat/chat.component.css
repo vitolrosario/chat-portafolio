@@ -32,9 +32,9 @@
     width: 80vw;
   }
   
-  .chat-messages.game {
+  /* .chat-messages.game {
     height: 20vh;
-  }
+  } */
 }
 
 @media (min-width: 768px) {
@@ -43,9 +43,9 @@
     width: 20vw;
   }
   
-  .chat-messages.game {
+  /* .chat-messages.game {
     height: 20vh;
-  }
+  } */
 }
 
 
@@ -60,7 +60,7 @@
   word-wrap: break-word;
   clear: both;
   font-size: smaller;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .message.left {
@@ -242,4 +242,63 @@ div.message ul {
 switch-component {
   margin-bottom: 20px;
   margin-top: 10px;
+}
+
+
+/* .message-box {
+  background-color: #333;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 400px;
+  display: flex;
+  font-family: 'Arial', sans-serif;
+  max-width: 70%;
+} */
+
+
+.message-game {
+  background-color: #333;
+  /* border: 2px solid #fff; */
+  border-radius: 10px;
+  /* padding: 10px; */
+  max-width: 400px;
+  display: flex;
+}
+
+.message-game .character-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px; 
+}
+
+.message-game .character-icon {
+  width: 40px;
+  height: 40px;
+  /* border: 2px solid #fff; */
+  border-radius: 50%;
+}
+
+.message-game .character-name {
+  margin: 5px 0;
+  font-size: 10px;
+  color: #fff;
+}
+
+.message-game .character-saying {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  text-align: left;
+}
+
+.message-game .message-text {
+  margin: 0;
+  color: #fff;
+}
+
+.game .message {
+  background-color: #333;
 }

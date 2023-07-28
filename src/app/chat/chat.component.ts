@@ -25,13 +25,13 @@ export class ChatComponent {
   chatOptionsDefault: iChatOption[] = [
     {option: "Who are you?", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
     {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
-    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>SQL Server, Oracle</li></ul>", show: false},
   ];
 
   chatOptionsGameMode: iChatOption[] = [
     {option: "Start Game", message: "Ah, welcome, my name is Victor Rosario and i'm a fullstack software developer.", show: true},
     {option: "How many years of experience do you have in software development?", message: "Experience matters little in the face of my coding abilities. Nevertheless, I have sharpen my skills for over a decade.", show: false},
-    {option: "What technologies do you specialize in?", message: "My specialization goes far beyond your measly understanding. I command the forces of <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular</li><li>.NET</li><li>MongoDB</li><li>SQL (SQL Server and Oracle)</li></ul>", show: false},
+    {option: "What technologies do you specialize in?", message: "My specialization goes far beyond your measly understanding. I command the forces of <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>SQL Server, Oracle</li></ul>", show: false},
   ];
 
   chatOptions: iChatOption[] = this.chatOptionsDefault;
@@ -54,11 +54,11 @@ export class ChatComponent {
   async sendMessage(option: iChatOption, index: number): Promise<void> {
     option.fade = true
 
-    if (!this.gameMode)
+    // if (!this.gameMode)
       this.chatMessages.push({ side:"R", message: option.option})
-    else 
-      this.chatMessages = []
-    // await this.pushMessageByLetter("R", option.option)
+      // await this.pushMessageByLetter("R", option.option)
+    // else 
+    //   this.chatMessages = []
     
     this.scroll()
 

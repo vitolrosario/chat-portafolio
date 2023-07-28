@@ -8,7 +8,21 @@
 
       <div class="chat-messages" #chatContainer *ngIf="!isCannonVisible">
         <div *ngFor="let item of chatMessages" class="message" [class.left]="item.side === 'L'" [class.right]="item.side === 'R'">
-          <span [innerHTML]="item.message"></span>
+
+          <div *ngIf="!gameMode">
+            <span [innerHTML]="item.message"></span>
+          </div>
+
+          <div *ngIf="gameMode" class="message-game">
+            <div class="character-info">
+              <img [src]="item.side === 'L' ? 'assets/boss.png' : 'assets/player.png'" class="character-icon">
+              <h3 class="character-name">{{item.side === 'L' ? 'Boss' : 'Player'}}</h3>
+            </div>
+            <div class="character-saying">
+              <p class="message-text"><span [innerHTML]="item.message"></span></p>
+            </div>
+          </div>
+
         </div>
 
         <ng-container #typingAnimation *ngIf="loading">
