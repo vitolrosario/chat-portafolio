@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "dist/chat-portafolio",
+    "site": "vrosario-chat",
     "ignore": [
       "firebase.json",
       "**/.*",
