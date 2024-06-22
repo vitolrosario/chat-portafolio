@@ -23,15 +23,15 @@ export class ChatComponent {
   gameMode: boolean = false
 
   chatOptionsDefault: iChatOption[] = [
-    {option: "Who are you?", message: "My name is Victor Rosario and i'm a fullstack software developer.", show: true},
-    {option: "How many years of experience do you have in software development?", message: "I have over 5 years of experience in software development.", show: false},
-    {option: "What technologies do you specialize in?", message: "I specialize in <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>SQL Server, Oracle</li></ul>", show: false},
+    {option: "Quien eres?", message: "Mi nombre es Victor Rosario y soy un fullstack software developer.", show: true},
+    {option: "Cuantos años de experiencia tienes en el desarrollo de software?", message: "Tengo mas de 6 años de experiencia en el desarrollo de software", show: false},
+    {option: "En que tecnologias te especializas?", message: "Me especializo en <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>PostgreSQL, Oracle</li></ul>", show: false},
   ];
 
   chatOptionsGameMode: iChatOption[] = [
-    {option: "Start Game", message: "Ah, welcome, my name is Victor Rosario and i'm a fullstack software developer.", show: true},
-    {option: "How many years of experience do you have in software development?", message: "Experience matters little in the face of my coding abilities. Nevertheless, I have sharpen my skills for over a decade.", show: false},
-    {option: "What technologies do you specialize in?", message: "My specialization goes far beyond your measly understanding. I command the forces of <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>SQL Server, Oracle</li></ul>", show: false},
+    {option: "Empezar Juego", message: "Ah, bienvenido, mi nombre es Victor Rosario y soy un fullstack software developer.", show: true},
+    {option: "Cuantos años de experiencia tienes en el desarrollo de software?", message: "La experiencia importa poco frente a mis habilidades de desarrollo. Sin embargo, he perfeccionado mis habilidades durante más de una década.", show: false},
+    {option: "En que tecnologias te especializas?", message: "Mi especialización va mucho más allá de su miserable comprensión. Yo gobierno las fuerzas de <ul style='margin-left: 20px !important'><li>Node.js</li><li>AngularJS, Angular 2+</li><li>.NET/Core</li><li>MongoDB</li><li>SQL Server, Oracle</li></ul>", show: false},
   ];
 
   chatOptions: iChatOption[] = this.chatOptionsDefault;

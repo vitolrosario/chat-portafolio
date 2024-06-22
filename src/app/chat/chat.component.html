@@ -1,7 +1,7 @@
 <div class="chat-container" [class.font-normal]="!gameMode" [class.font-game]="gameMode">
 
       <div class="switch-container">
-        <label>{{gameMode ? "Game Mode" : "Professional Mode"}}</label>
+        <label>{{gameMode ? "Modo Juego" : "Modo Profesional"}}</label>
       </div>
 
       <switch-component [(value)]="gameMode" (change)="changeGameMode()"></switch-component>
